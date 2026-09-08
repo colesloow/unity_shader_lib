@@ -6,12 +6,16 @@ A modular HLSL shader library for Unity.
 
 | File | Contents |
 |---|---|
-| `Shaders/Noise.hlsl` | Hash13, ValueNoise, Fbm, FbmWarped, Hash12, ValueNoise2D, Fbm2D |
+| `Shaders/Noise.hlsl` | Hash13, Hash12, Hash22, Hash33, ValueNoise, ValueNoise2D, GradientNoise2D, Voronoi2D, Fbm, Fbm2D, FbmWarped |
 | `Shaders/Color.hlsl` | RGBtoHSV, HSVtoRGB, XYZtoLinearSRGB, CIE1931, LinearToGamma, GammaToLinear, Blackbody |
 | `Shaders/Math.hlsl` | RotateAboutAxis, RotateX, RotateY, RotateZ, Remap |
 | `Shaders/Optics.hlsl` | FresnelSchlick, ThinFilmOPD, ThinFilmReflectance, SpectralFilter |
-| `Shaders/SDF.hlsl` | SdSphere, SdBox, SdTorus, SdCapsule |
+| `Shaders/Lighting.hlsl` | DiffuseLambert, DiffuseWrapped, DiffuseOrenNayar, D_GGX, G_SmithSchlick, FresnelSchlickRoughness, SpecularCookTorrance |
+| `Shaders/SDF.hlsl` | SdSphere, SdBox, SdTorus, SdCapsule, SdPlane, Op* boolean/smooth/domain operators, Raymarch, SdfSceneNormal, SdfSoftShadow |
 | `Shaders/NormalMap.hlsl` | UnpackNormal, UnpackNormalScaled, NormalFromHeight, NoiseNormal |
+| `Shaders/UV.hlsl` | RotateUV, ScaleUV, ToPolar, FromPolar, Triplanar |
+| `Shaders/Easing.hlsl` | SmootherStep, EaseInOutCubic, EaseOutElastic, EaseOutBounce, Gain, Pulse |
+| `Shaders/SpaceTransforms.hlsl` | LinearEyeDepthFromRaw, LinearDepth01FromRaw, WorldPosFromDepth, Bayer4x4, DitherClip |
 
 ## Installation
 
@@ -29,6 +33,23 @@ Or clone locally and add via `Add package from disk` pointing to the `package.js
 #include "Packages/com.coleslow.shaderlib/Shaders/Noise.hlsl"
 #include "Packages/com.coleslow.shaderlib/Shaders/Optics.hlsl"
 ```
+
+### Raymarching with SDF.hlsl
+
+The raymarch helpers need your scene distance function. Include once for the
+primitives, write the scene, then include again with the scene macro defined:
+
+```hlsl
+#include "Packages/com.coleslow.shaderlib/Shaders/SDF.hlsl"
+
+float MyScene(float3 p) { return SdSphere(p, 1.0); }
+#define COLESLOW_SDF_SCENE(p) MyScene(p)
+
+#include "Packages/com.coleslow.shaderlib/Shaders/SDF.hlsl"
+```
+
+`SdfSceneNormal`, `Raymarch` and `SdfSoftShadow` are then available. The
+primitives and operators do not require the macro.
 
 ## License
 
