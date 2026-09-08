@@ -6,10 +6,12 @@ A modular HLSL shader library for Unity.
 
 | File | Contents |
 |---|---|
-| `Shaders/Noise.hlsl` | Hash13, ValueNoise, Fbm, FbmWarped |
-| `Shaders/Color.hlsl` | RGBtoHSV, HSVtoRGB, XYZtoLinearSRGB, CIE1931 |
-| `Shaders/Math.hlsl` | RotateAboutAxis, RotateY |
+| `Shaders/Noise.hlsl` | Hash13, ValueNoise, Fbm, FbmWarped, Hash12, ValueNoise2D, Fbm2D |
+| `Shaders/Color.hlsl` | RGBtoHSV, HSVtoRGB, XYZtoLinearSRGB, CIE1931, LinearToGamma, GammaToLinear, Blackbody |
+| `Shaders/Math.hlsl` | RotateAboutAxis, RotateX, RotateY, RotateZ, Remap |
 | `Shaders/Optics.hlsl` | FresnelSchlick, ThinFilmOPD, ThinFilmReflectance, SpectralFilter |
+| `Shaders/SDF.hlsl` | SdSphere, SdBox, SdTorus, SdCapsule |
+| `Shaders/NormalMap.hlsl` | UnpackNormal, UnpackNormalScaled, NormalFromHeight, NoiseNormal |
 
 ## Installation
 

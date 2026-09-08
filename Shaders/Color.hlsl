@@ -64,4 +64,54 @@ float3 CIE1931(float lambda)
     return float3(x, y, z);
 }
 
+/// Converts a linear color to gamma (sRGB) space using the exact sRGB transfer curve.
+/// @param c Linear RGB color.
+/// @return Gamma-encoded RGB color.
+float3 LinearToGamma(float3 c)
+{
+    float3 lo = c * 12.92;
+    float3 hi = 1.055 * pow(max(c, 0.0), 1.0 / 2.4) - 0.055;
+    return lerp(hi, lo, step(c, 0.0031308));
+}
+
+/// Converts a gamma (sRGB) color to linear space using the exact sRGB transfer curve.
+/// @param c Gamma-encoded RGB color.
+/// @return Linear RGB color.
+float3 GammaToLinear(float3 c)
+{
+    float3 lo = c / 12.92;
+    float3 hi = pow(max(c + 0.055, 0.0) / 1.055, 2.4);
+    return lerp(hi, lo, step(c, 0.04045));
+}
+
+/// Approximates the linear sRGB color of an ideal blackbody at a given temperature.
+/// Uses a polynomial fit to the Planckian locus (valid roughly 1000-40000 K).
+/// @param kelvin Temperature in Kelvin.
+/// @return Linear RGB color, normalized so the brightest channel is 1.
+float3 Blackbody(float kelvin)
+{
+    float t = clamp(kelvin, 1000.0, 40000.0) / 100.0;
+    float r, g, b;
+
+    if (t <= 66.0)
+    {
+        r = 1.0;
+        g = saturate(0.39008157 * log(t) - 0.63184144);
+    }
+    else
+    {
+        r = saturate(1.29293618 * pow(t - 60.0, -0.1332047592));
+        g = saturate(1.12989086 * pow(t - 60.0, -0.0755148492));
+    }
+
+    if (t >= 66.0)
+        b = 1.0;
+    else if (t <= 19.0)
+        b = 0.0;
+    else
+        b = saturate(0.54320679 * log(t - 10.0) - 1.19625408);
+
+    return float3(r, g, b);
+}
+
 #endif

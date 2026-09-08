@@ -53,6 +53,50 @@ float Fbm(float3 p)
     return sum;
 }
 
+/// Returns a pseudo-random float in [0, 1) from a 2D point. For UV-space shader noise.
+/// @param p Sample point (e.g. floor of a scaled UV).
+/// @return Hash value in [0, 1).
+float Hash12(float2 p)
+{
+    float3 p3 = frac(float3(p.xyx) * 0.1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return frac((p3.x + p3.y) * p3.z);
+}
+
+/// Smooth value noise in 2D. Interpolates Hash12 values at the 4 corners of a unit cell.
+/// @param p Continuous sample position (scale to control frequency).
+/// @return Noise value in [0, 1).
+float ValueNoise2D(float2 p)
+{
+    float2 i = floor(p);
+    float2 f = frac(p);
+    f = f * f * (3.0 - 2.0 * f); // smoothstep
+    float n00 = Hash12(i + float2(0, 0));
+    float n10 = Hash12(i + float2(1, 0));
+    float n01 = Hash12(i + float2(0, 1));
+    float n11 = Hash12(i + float2(1, 1));
+    float nx0 = lerp(n00, n10, f.x);
+    float nx1 = lerp(n01, n11, f.x);
+    return lerp(nx0, nx1, f.y);
+}
+
+/// Fractional Brownian Motion in 2D: 4 octaves of ValueNoise2D with decreasing amplitude.
+/// @param p Sample position. Scale before passing to control base frequency.
+/// @return FBM value roughly in [0, 1).
+float Fbm2D(float2 p)
+{
+    float sum = 0.0;
+    float amp = 0.5;
+    [unroll]
+    for (int i = 0; i < 4; i++)
+    {
+        sum += ValueNoise2D(p) * amp;
+        p *= 2.0;
+        amp *= 0.5;
+    }
+    return sum;
+}
+
 /// Domain-warped FBM: a first FBM pass deforms the coordinates before the main FBM.
 /// Produces organic swirling structures compared to plain FBM.
 /// @param p Sample position.
