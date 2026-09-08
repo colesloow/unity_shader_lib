@@ -1,0 +1,12 @@
+{
+  "name": "com.coleslow.shaderlib",
+  "version": "0.1.0",
+  "displayName": "Coleslow Shader Library",
+  "description": "Reusable HLSL functions for Unity shaders: noise, color utilities, physical optics, and math helpers.",
+  "unity": "2021.3",
+  "author": {
+    "name": "Colin Veron",
+    "url": "https://github.com/colesloow"
+  },
+  "keywords": ["shaders", "hlsl", "noise", "pbr", "optics"]
+}
