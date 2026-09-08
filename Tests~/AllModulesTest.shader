@@ -93,7 +93,8 @@ Shader "Coleslow/Tests/AllModulesTest"
                 // Color
                 float3 hsv = RGBtoHSV(saturate(acc));
                 acc += HSVtoRGB(hsv);
-                acc += XYZtoLinearSRGB(CIE1931(550.0)) * Lobe(550.0, 560.0, 40.0, 40.0);
+                float lambda = lerp(380.0, 740.0, uv.x); // non-constant: avoids FXC constant-fold precision warnings
+                acc += XYZtoLinearSRGB(CIE1931(lambda)) * Lobe(lambda, 560.0, 40.0, 40.0);
                 acc += LinearToGamma(saturate(acc)) + GammaToLinear(saturate(acc));
                 acc += Blackbody(6500.0);
 
