@@ -3,12 +3,14 @@
 
 #include "Noise.hlsl"
 
-/// Decodes a Unity tangent-space normal map sample into a normal vector.
-/// Handles both DXT5nm/BC5 (alpha or green stored) and plain RGB encodings.
+// Named DecodeNormalMap* rather than UnpackNormal* to avoid colliding with the
+// UnpackNormal / UnpackNormalScale already defined by URP/HDRP core.
+
+/// Decodes a Unity DXT5nm-encoded tangent-space normal map sample (xy in a/g).
 /// @param packedNormal Raw texture sample from a normal map.
 /// @param scale Normal intensity multiplier (bump strength).
 /// @return Tangent-space normal, normalized, z pointing out of the surface.
-float3 UnpackNormalScaled(float4 packedNormal, float scale)
+float3 DecodeNormalMapScaled(float4 packedNormal, float scale)
 {
     float3 normal;
     normal.xy = packedNormal.wy * 2.0 - 1.0;
@@ -17,12 +19,12 @@ float3 UnpackNormalScaled(float4 packedNormal, float scale)
     return normal;
 }
 
-/// Decodes a Unity tangent-space normal map sample with unit intensity.
+/// Decodes a Unity DXT5nm-encoded tangent-space normal map sample, unit intensity.
 /// @param packedNormal Raw texture sample from a normal map.
 /// @return Tangent-space normal, normalized.
-float3 UnpackNormal(float4 packedNormal)
+float3 DecodeNormalMap(float4 packedNormal)
 {
-    return UnpackNormalScaled(packedNormal, 1.0);
+    return DecodeNormalMapScaled(packedNormal, 1.0);
 }
 
 /// Builds a tangent-space normal by sampling a height field via central finite differences.

@@ -12,7 +12,7 @@ A modular HLSL shader library for Unity.
 | `Shaders/Optics.hlsl` | FresnelSchlick, ThinFilmOPD, ThinFilmReflectance, SpectralFilter |
 | `Shaders/Lighting.hlsl` | DiffuseLambert, DiffuseWrapped, DiffuseOrenNayar, D_GGX, G_SmithSchlick, FresnelSchlickRoughness, SpecularCookTorrance |
 | `Shaders/SDF.hlsl` | SdSphere, SdBox, SdTorus, SdCapsule, SdPlane, Op* boolean/smooth/domain operators, Raymarch, SdfSceneNormal, SdfSoftShadow |
-| `Shaders/NormalMap.hlsl` | UnpackNormal, UnpackNormalScaled, NormalFromHeight, NoiseNormal |
+| `Shaders/NormalMap.hlsl` | DecodeNormalMap, DecodeNormalMapScaled, NormalFromHeight, NoiseNormal |
 | `Shaders/UV.hlsl` | RotateUV, ScaleUV, ToPolar, FromPolar, Triplanar |
 | `Shaders/Easing.hlsl` | SmootherStep, EaseInOutCubic, EaseOutElastic, EaseOutBounce, Gain, Pulse |
 | `Shaders/SpaceTransforms.hlsl` | LinearEyeDepthFromRaw, LinearDepth01FromRaw, WorldPosFromDepth, Bayer4x4, DitherClip |
