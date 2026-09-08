@@ -55,13 +55,15 @@ float3 RotateZ(float3 dir, float turns)
 }
 
 /// Linearly remaps a value from one range to another. Not clamped.
+/// Named RemapRange rather than Remap to avoid colliding with URP/HDRP core,
+/// which defines Remap() with a different argument order.
 /// @param value Input value.
 /// @param inMin Start of the input range.
 /// @param inMax End of the input range.
 /// @param outMin Start of the output range.
 /// @param outMax End of the output range.
 /// @return Remapped value.
-float Remap(float value, float inMin, float inMax, float outMin, float outMax)
+float RemapRange(float value, float inMin, float inMax, float outMin, float outMax)
 {
     return outMin + (value - inMin) * (outMax - outMin) / (inMax - inMin);
 }

@@ -80,7 +80,7 @@ Shader "Coleslow/Tests/AllModulesTest"
                 // Math
                 acc += RotateAboutAxis(v, n, 0.5);
                 acc += RotateX(v, 0.1) + RotateY(v, 0.1) + RotateZ(v, 0.1);
-                acc += Remap(uv.x, 0.0, 1.0, -1.0, 1.0);
+                acc += RemapRange(uv.x, 0.0, 1.0, -1.0, 1.0);
 
                 // Noise
                 acc += Hash13(IN.positionWS) + Hash12(uv);

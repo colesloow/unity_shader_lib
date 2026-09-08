@@ -8,7 +8,7 @@ A modular HLSL shader library for Unity.
 |---|---|
 | `Shaders/Noise.hlsl` | Hash13, Hash12, Hash22, Hash33, ValueNoise, ValueNoise2D, GradientNoise2D, Voronoi2D, Fbm, Fbm2D, FbmWarped |
 | `Shaders/Color.hlsl` | RGBtoHSV, HSVtoRGB, XYZtoLinearSRGB, CIE1931, LinearToGamma, GammaToLinear, Blackbody |
-| `Shaders/Math.hlsl` | RotateAboutAxis, RotateX, RotateY, RotateZ, Remap |
+| `Shaders/Math.hlsl` | RotateAboutAxis, RotateX, RotateY, RotateZ, RemapRange |
 | `Shaders/Optics.hlsl` | FresnelSchlick, ThinFilmOPD, ThinFilmReflectance, SpectralFilter |
 | `Shaders/Lighting.hlsl` | DiffuseLambert, DiffuseWrapped, DiffuseOrenNayar, D_GGX, G_SmithSchlick, FresnelSchlickRoughness, SpecularCookTorrance |
 | `Shaders/SDF.hlsl` | SdSphere, SdBox, SdTorus, SdCapsule, SdPlane, Op* boolean/smooth/domain operators, Raymarch, SdfSceneNormal, SdfSoftShadow |
