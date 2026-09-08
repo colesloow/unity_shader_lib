@@ -106,8 +106,8 @@ Shader "Coleslow/Tests/AllModulesTest"
                 // Lighting
                 acc += DiffuseLambert(n, l) + DiffuseWrapped(n, l, 0.5);
                 acc += DiffuseOrenNayar(n, l, v, 0.6);
-                acc += D_GGX(saturate(dot(n, normalize(v + l))), 0.4);
-                acc += G_SmithSchlick(saturate(dot(n, v)), saturate(dot(n, l)), 0.4);
+                acc += DistributionGGX(saturate(dot(n, normalize(v + l))), 0.4);
+                acc += GeometrySmithGGX(saturate(dot(n, v)), saturate(dot(n, l)), 0.4);
                 acc += FresnelSchlickRoughness(saturate(dot(n, v)), 0.04, 0.4);
                 acc += SpecularCookTorrance(n, v, l, 0.04, 0.4);
 

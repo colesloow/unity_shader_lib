@@ -10,7 +10,7 @@ A modular HLSL shader library for Unity.
 | `Shaders/Color.hlsl` | RGBtoHSV, HSVtoRGB, XYZtoLinearSRGB, CIE1931, LinearToGamma, GammaToLinear, Blackbody |
 | `Shaders/Math.hlsl` | RotateAboutAxis, RotateX, RotateY, RotateZ, RemapRange |
 | `Shaders/Optics.hlsl` | FresnelSchlick, ThinFilmOPD, ThinFilmReflectance, SpectralFilter |
-| `Shaders/Lighting.hlsl` | DiffuseLambert, DiffuseWrapped, DiffuseOrenNayar, D_GGX, G_SmithSchlick, FresnelSchlickRoughness, SpecularCookTorrance |
+| `Shaders/Lighting.hlsl` | DiffuseLambert, DiffuseWrapped, DiffuseOrenNayar, DistributionGGX, GeometrySmithGGX, FresnelSchlickRoughness, SpecularCookTorrance |
 | `Shaders/SDF.hlsl` | SdSphere, SdBox, SdTorus, SdCapsule, SdPlane, Op* boolean/smooth/domain operators, Raymarch, SdfSceneNormal, SdfSoftShadow |
 | `Shaders/NormalMap.hlsl` | DecodeNormalMap, DecodeNormalMapScaled, NormalFromHeight, NoiseNormal |
 | `Shaders/UV.hlsl` | RotateUV, ScaleUV, ToPolar, FromPolar, Triplanar |

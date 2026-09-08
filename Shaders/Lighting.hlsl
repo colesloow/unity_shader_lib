@@ -56,7 +56,8 @@ float DiffuseOrenNayar(float3 normal, float3 lightDir, float3 viewDir, float rou
 /// @param NdotH Cosine of the angle between normal and half vector.
 /// @param roughness Perceptual roughness in [0, 1].
 /// @return Microfacet distribution density.
-float D_GGX(float NdotH, float roughness)
+/// Named DistributionGGX rather than D_GGX to avoid colliding with URP/HDRP core BSDF.hlsl.
+float DistributionGGX(float NdotH, float roughness)
 {
     float a = roughness * roughness;
     float a2 = a * a;
@@ -69,7 +70,7 @@ float D_GGX(float NdotH, float roughness)
 /// @param NdotL Cosine between normal and light direction.
 /// @param roughness Perceptual roughness in [0, 1].
 /// @return Geometric shadowing/masking factor in [0, 1].
-float G_SmithSchlick(float NdotV, float NdotL, float roughness)
+float GeometrySmithGGX(float NdotV, float NdotL, float roughness)
 {
     float r = roughness + 1.0;
     float k = r * r / 8.0;
@@ -105,8 +106,8 @@ float3 SpecularCookTorrance(float3 normal, float3 viewDir, float3 lightDir, floa
     float NdotH = saturate(dot(normal, h));
     float VdotH = saturate(dot(viewDir, h));
 
-    float D = D_GGX(NdotH, roughness);
-    float G = G_SmithSchlick(NdotV, NdotL, roughness);
+    float D = DistributionGGX(NdotH, roughness);
+    float G = GeometrySmithGGX(NdotV, NdotL, roughness);
     float3 F = F0 + (1.0 - F0) * pow(1.0 - VdotH, 5.0);
 
     return (D * G * F) / max(4.0 * NdotV * NdotL, 1e-4) * NdotL;
