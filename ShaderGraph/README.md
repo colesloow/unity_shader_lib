@@ -54,8 +54,7 @@ left to the native nodes.
 `Nodes/<Domain>/<Name>.shadersubgraph` holds one Custom Function node wired
 through subgraph inputs/outputs. Two were authored in the editor (`Noise/Fbm2D`,
 `Noise/Voronoi2D`); the rest are emitted by `Tests~/tools/gen_subgraphs.py`,
-which templates that structure. `WorldPosFromDepth` is not generated: it needs a
-Matrix4 input, which the generator does not cover yet.
+which templates that structure.
 
 ## Adding a new node
 

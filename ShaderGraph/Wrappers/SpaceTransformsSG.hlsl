@@ -9,12 +9,17 @@
 #include "Packages/com.coleslow.shaderlib/Shaders/SpaceTransforms.hlsl"
 
 // Reconstruct a world-space position from a raw depth sample.
-// Feed InvViewProjection with the Matrix4x4 property bound to UNITY_MATRIX_I_VP
-// (there is no built-in Shader Graph node exposing it).
-// float only: a half precision matrix is not meaningful here.
-void WorldPosFromDepth_float(float2 ScreenUV, float RawDepth, float4x4 InvViewProjection, out float3 Out)
+// Reads UNITY_MATRIX_I_VP directly so the node needs no matrix input: it uses
+// whichever camera is currently rendering, which is what fullscreen effects want.
+// The 3-argument WorldPosFromDepth in Shaders/SpaceTransforms.hlsl stays available
+// for code that must pass a specific matrix.
+void WorldPosFromDepth_float(float2 ScreenUV, float RawDepth, out float3 Out)
 {
-    Out = WorldPosFromDepth(ScreenUV, RawDepth, InvViewProjection);
+    Out = WorldPosFromDepth(ScreenUV, RawDepth, UNITY_MATRIX_I_VP);
+}
+void WorldPosFromDepth_half(half2 ScreenUV, half RawDepth, out half3 Out)
+{
+    Out = WorldPosFromDepth(ScreenUV, RawDepth, UNITY_MATRIX_I_VP);
 }
 
 #endif

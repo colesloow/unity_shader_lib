@@ -305,6 +305,9 @@ DOMAINS = [
         ("Gain", [("T", V1), ("K", V1)], [("Out", V1)]),
         ("Pulse", [("Edge0", V1), ("Edge1", V1), ("X", V1)], [("Out", V1)]),
     ]),
+    ("03dc61b866674a2395a239e14cdb7a4c", "SpaceTransforms", [
+        ("WorldPosFromDepth", [("ScreenUV", V2), ("RawDepth", V1)], [("Out", V3)]),
+    ]),
     ("7d23c9eee8a0423782413782dee03e62", "SDF", [
         ("SdSphere", [("P", V3), ("Radius", V1)], [("Distance", V1)]),
         ("SdBox", [("P", V3), ("HalfExtents", V3)], [("Distance", V1)]),
