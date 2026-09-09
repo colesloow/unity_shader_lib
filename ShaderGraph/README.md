@@ -49,6 +49,14 @@ left to the native nodes.
 `WavelengthToRGB` is a convenience combo not in the base library
 (`saturate(XYZtoLinearSRGB(CIE1931(nm)))`).
 
+## Sub Graph assets
+
+`Nodes/<Domain>/<Name>.shadersubgraph` holds one Custom Function node wired
+through subgraph inputs/outputs. Two were authored in the editor (`Noise/Fbm2D`,
+`Noise/Voronoi2D`); the rest are emitted by `Tests~/tools/gen_subgraphs.py`,
+which templates that structure. `WorldPosFromDepth` is not generated: it needs a
+Matrix4 input, which the generator does not cover yet.
+
 ## Adding a new node
 
 1. Append a `_float` / `_half` pair to the matching `Wrappers/*SG.hlsl`:
@@ -56,12 +64,11 @@ left to the native nodes.
    void MyFunction_float(float A, out float Out) { Out = MyFunction(A); }
    void MyFunction_half(half A, out half Out)    { Out = MyFunction(A); }
    ```
-2. In the editor: create `Nodes/<Domain>/MyFunction.shadersubgraph`.
-3. Inside it, add a **Custom Function** node, File mode, pointing at the wrapper
-   file, `Name` = `MyFunction` (no suffix), and declare the ports to match the
-   wrapper signature.
-4. Add matching Sub Graph input/output properties and wire them through.
-5. Commit the `.shadersubgraph` and its `.meta`.
+2. Add a spec row to the matching domain in `Tests~/tools/gen_subgraphs.py`
+   (port names must match the wrapper parameter names exactly), then run it
+   against a Unity project's `Packages/com.coleslow.shaderlib/ShaderGraph/Nodes`.
+   Existing assets are skipped, so editor-authored ones win.
+3. Commit the new `.shadersubgraph` and its `.meta`.
 
 Existing Sub Graphs are never touched.
 
