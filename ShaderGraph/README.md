@@ -25,8 +25,8 @@ File mode stores the HLSL path, and every Sub Graph would lose its reference.
   A function returning two values (e.g. `Voronoi2D`) gets two `out` ports.
 - **Port names**: PascalCase, meaningful (`NdotH`, `Roughness`, `HalfExtents`).
 - **Sub Graph asset name**: exactly `<LibName>` so it is found by that name.
-- **Sub Graph category**: `Coleslow/<Domain>` (set in the Sub Graph's Blackboard
-  or via the asset path `Nodes/<Domain>/<LibName>.shadersubgraph`).
+- **Sub Graph category**: `Coleslow/<Domain>`, stored as `m_Path` on the
+  GraphData object. The generator sets it from the target folder name.
 
 ## What is wrapped
 
