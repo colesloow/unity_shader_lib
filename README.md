@@ -17,6 +17,13 @@ A modular HLSL shader library for Unity.
 | `Shaders/Easing.hlsl` | SmootherStep, EaseInOutCubic, EaseOutElastic, EaseOutBounce, Gain, Pulse |
 | `Shaders/SpaceTransforms.hlsl` | LinearEyeDepthFromRaw, LinearDepth01FromRaw, WorldPosFromDepth, Bayer4x4, DitherClip |
 
+## Shader Graph
+
+`ShaderGraph/Wrappers/` exposes the functions that have no built-in Shader Graph
+equivalent as `_float` / `_half` forwarders for Custom Function nodes. Each one
+is packaged as a Sub Graph under `ShaderGraph/Nodes/`. See
+[ShaderGraph/README.md](ShaderGraph/README.md).
+
 ## Installation
 
 Add to your Unity project via the Package Manager using the Git URL:
